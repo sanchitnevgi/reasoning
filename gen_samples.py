@@ -6,6 +6,8 @@ logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def evaluate():
+    logger.info('***** Begin Evalution *****')
+
     bart = BARTModel.from_pretrained(
         'checkpoints/',
         checkpoint_file='checkpoint_best.pt',
