@@ -11,7 +11,7 @@ def evaluate():
     bart = BARTModel.from_pretrained(
         'checkpoints/',
         checkpoint_file='checkpoint_best.pt',
-        data_name_or_path='cnn_dm-bin'
+        data_name_or_path='bin'
     )
 
     bart.cuda()
@@ -26,7 +26,7 @@ def evaluate():
         for sline in source:
             if count % bsz == 0:
                 with torch.no_grad():
-                    hypotheses_batch = bart.sample(slines, beam=4, lenpen=2.0, max_len_b=140, min_len=55, no_repeat_ngram_size=3)
+                    hypotheses_batch = bart.sample(slines, beam=5, lenpen=2.0, max_len_b=100, min_len=20, no_repeat_ngram_size=3)
 
                 for hypothesis in hypotheses_batch:
                     fout.write(hypothesis + '\n')
@@ -36,7 +36,7 @@ def evaluate():
             slines.append(sline.strip())
             count += 1
         if slines != []:
-            hypotheses_batch = bart.sample(slines, beam=4, lenpen=2.0, max_len_b=140, min_len=55, no_repeat_ngram_size=3)
+            hypotheses_batch = bart.sample(slines, beam=5, lenpen=2.0, max_len_b=100, min_len=20, no_repeat_ngram_size=3)
             for hypothesis in hypotheses_batch:
                 fout.write(hypothesis + '\n')
                 fout.flush()
