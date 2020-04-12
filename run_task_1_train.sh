@@ -1,15 +1,16 @@
 #!/bin/bash
 #SBATCH --partition=titanx-short
 #SBATCH --gres=gpu:1
+#SBATCH --mem=16000
 
-TOTAL_NUM_UPDATES=2036  
-WARMUP_UPDATES=61      
-LR=1e-05 
+TOTAL_NUM_UPDATES=2036
+WARMUP_UPDATES=61
+LR=1e-05
 NUM_CLASSES=2
 MAX_SENTENCES=16
-BART_PATH=bart.large/model.pt
+BART_PATH=/path/to/bart/model.pt
 
-python train.py MRPC-bin/ \
+python train.py task-1-bin/ \
     --restore-file $BART_PATH \
     --max-sentences $MAX_SENTENCES \
     --max-tokens 512 \
