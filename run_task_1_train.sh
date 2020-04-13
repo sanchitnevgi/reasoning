@@ -8,7 +8,7 @@ WARMUP_UPDATES=61
 LR=1e-05
 NUM_CLASSES=2
 MAX_SENTENCES=16
-BART_PATH=/path/to/bart/model.pt
+BART_PATH=bart.large/model.pt
 
 python train.py task-1-bin/ \
     --restore-file $BART_PATH \
