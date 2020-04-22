@@ -3,7 +3,7 @@ from fairseq.models.bart import BARTModel
 bart = BARTModel.from_pretrained(
     'checkpoints/',
     checkpoint_file='checkpoint_best.pt',
-    data_name_or_path='task_1_bin'
+    data_name_or_path='task-1-bin'
 )
 
 label_fn = lambda label: bart.task.label_dictionary.string(

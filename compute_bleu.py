@@ -35,7 +35,7 @@ def evaluate_bleu(args):
 def main():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument("--source")
+    parser.add_argument("--target")
     parser.add_argument("--hypo")
 
     args = parser.parse_args()
