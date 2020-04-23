@@ -17,29 +17,12 @@ def evaluate():
     bart.cuda()
     bart.eval()
 
-    count = 1
-    bsz = 32
-
-    with open('data/val.source') as source, open('data/val.hypo', 'w') as fout:
-        sline = source.readline().strip()
-        slines = [sline]
+    with open('./data/val.source') as source, open('./data/val.hypo', 'w') as fout:
         for sline in source:
-            if count % bsz == 0:
-                with torch.no_grad():
-                    hypotheses_batch = bart.sample(slines, beam=5, lenpen=2.0, max_len_b=100, min_len=20, no_repeat_ngram_size=3)
-
-                for hypothesis in hypotheses_batch:
-                    fout.write(hypothesis + '\n')
-                    fout.flush()
-                slines = []
-
-            slines.append(sline.strip())
-            count += 1
-        if slines != []:
-            hypotheses_batch = bart.sample(slines, beam=5, lenpen=2.0, max_len_b=100, min_len=20, no_repeat_ngram_size=3)
-            for hypothesis in hypotheses_batch:
-                fout.write(hypothesis + '\n')
-                fout.flush()
+            sline = sline.strip().lower()
+            with torch.no_grad():
+                hypo = bart.sample(sline, beam=5, lenpen=2.0, max_len_b=100, min_len=20, no_repeat_ngram_size=3)
+            fout.write(hypo.lower())
 
 if __name__ == "__main__":
     evaluate()
